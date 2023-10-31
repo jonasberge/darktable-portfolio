@@ -1,0 +1,25 @@
+# static files that have been built
+static/media
+static/scripts
+
+# vs code
+*.code-workspace
+.vscode/
+
+# python
+**/__pycache__
+venv
+
+# node.js
+node_modules
+yarn-error.log
+
+# build files
+build
+*.cache
+*.cache.pkl
+
+# don't version
+notes.txt
+darktable
+test.py

@@ -1,0 +1,41 @@
+- animation of the text:
+make it so that when we go the the next the text goes up
+and the new text appears from below,
+and vice versa when we go to the previous month.
+
+- clicking an image should open the viewer at that image
+and the viewer should be aware of the gallery's photos,
+their order and should copy and stack the accordingly,
+whenever the user scrolls or presses the next/previous buttons.
+also it should integrate with the navigation menu,
+giving the desired functions to the buttons,
+hiding the left and right site navigation
+and adding a close button
+and a hint that the scroll wheel
+and arrow keys can be used to navigate the viewer.
+
+- about page ofc
+
+- fade in/out the arrow keys when they appear and disappear
+
+- make the month card's text not break on phone.
+
+- maybe implement a data-max-width and data-max-height for images
+so that they arent pixelated in the gallery
+and they trigger a re-render with more columns
+in case one of the images would get too large.
+=> especially because we dont want to upload high-res images!
+
+
+DONE
+
+- when scrolling to a target month (by using the header buttons),
+not always will the scrolling cause the title to update
+and one of the arrows to disappear when they should.
+this might not be a desirable UX
+
+- using the mouse and dragging it to scroll up and down
+(not triggering any of the buttons)
+
+- the cards with the month text need to have a fixed height
+when they are on a single row (phone specifically)

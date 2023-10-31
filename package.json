@@ -1,0 +1,22 @@
+{
+  "name": "jonasberge.com",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "jonasberge <24623262+jonasberge@users.noreply.github.com>",
+  "license": "",
+  "private": true,
+  "devDependencies": {
+    "@babel/cli": "^7.23.0",
+    "@babel/core": "^7.23.0",
+    "@babel/preset-env": "^7.22.20",
+    "@rollup/plugin-terser": "^0.4.4",
+    "babel-preset-minify": "^0.5.2",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-rollup": "^2.17.0",
+    "merge-stream": "^2.0.0",
+    "rollup-plugin-typescript": "^1.0.1",
+    "tslib": "^2.6.2",
+    "typescript": "^5.2.2"
+  }
+}

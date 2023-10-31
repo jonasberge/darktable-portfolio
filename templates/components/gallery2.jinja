@@ -1,0 +1,17 @@
+<div class="gallery-container">
+  <div class="gallery">
+    {% for asset in photo_assets %}
+      <a href="{{ asset.get_url('large') }}" class="image-container not-loaded" draggable="false"
+        data-aspect-ratio="{{ asset.aspect_ratio | round(6) }}"
+        data-orientation="{{ 'landscape' if asset.aspect_ratio >= 1.0 else 'portrait' }}"
+        data-date="{{ asset.date_key.strftime('%Y-%m-%d') }}"
+        data-key="{{ asset.date_key.strftime('%B') | lower }}">
+        <img src=""
+          data-src="{{ asset.get_url('medium') }}"
+          data-viewer-src="{{ asset.get_url('large') }}"
+          data-viewer-width="{{ asset.dimensions_for_media_size(export_manager.get_media_size('large')).width | round(6) }}"
+          data-viewer-height="{{ asset.dimensions_for_media_size(export_manager.get_media_size('large')).height | round(6) }}">
+      </a>
+    {% endfor %}
+  </div>
+</div>

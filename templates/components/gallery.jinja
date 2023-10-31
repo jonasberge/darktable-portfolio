@@ -1,0 +1,17 @@
+<div class="gallery-container">
+  <div class="gallery">
+  {% for datetime_month, exports in grouped_exports %}
+  {%- for export in exports %}
+    <a href="{{ export.static_url }}" class="image-container not-loaded" draggable="false"
+      data-aspect-ratio="{{ export.aspect_ratio | round(6) }}"
+      data-orientation="{{ 'landscape' if export.aspect_ratio >= 1.0 else 'portrait' }}"
+      data-month="{{ datetime_month.strftime('%B') | lower }}"
+      {% if 'portfolio|featured' in export.photo.tags.keys() | map(attribute='name') %}
+      data-pinned="true"
+      {% endif %}>
+      <img src="" data-src="{{ export.static_url }}">
+    </a>
+  {% endfor %}
+  {% endfor %}
+  </div>
+</div>

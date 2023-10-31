@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      {% if title %}
+        {{ title }} &mdash;
+      {% endif %}
+      Jonas Berge
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/static/styles/normalize.css">
+    <link rel="stylesheet" href="/static/styles/fonts.css">
+    <link rel="stylesheet" href="/static/styles/index.css">
+  </head>
+  <body>
+    <div id="app" class="blurred">
+      <div class="app-content">
+        <nav id="navigation" class="is-compact2">
+          <div class="navigation-content">
+            <ul class="menu left">
+              <li class="{{ 'selected' if menu_item == 'landscape' }}">
+                <a href="/landscape" draggable="false">Landscape</a>
+              </li>
+              <li class="{{ 'selected' if menu_item == 'closeup' }}">
+                <a href="/closeup" draggable="false">Closeup</a>
+              </li>
+              <li class="{{ 'selected' if menu_item == 'film' }}">
+                <a href="/film" draggable="false">Film</a>
+              </li>
+            </ul>
+            <ul class="menu center">
+              <li>
+                <a href="" class="button action-left invisible">
+                  <i class="arrow-left"></i>
+                </a>
+              </li><li id="live-title">
+                <a href="" class="button action-center">
+                  <span class="live-title-content"></span>
+                </a>
+              </li><li>
+                <a href="" class="button action-right invisible">
+                  <i class="arrow-right"></i>
+                </a>
+              </li>
+            </ul>
+            <ul class="menu right">
+              <li><a href="/about" draggable="false">About</a></li>
+            </ul>
+          </div>
+        </nav>
+        <main id="main">
+          <div id="gallery">
+            {% include "components/gallery2.jinja" %}
+          </div>
+        </main>
+        <div id="viewer">
+          <div class="viewer-content">
+
+          </div>
+        </div>
+        <div id="viewer-hint">
+          <span class="hint-text">scroll or use the arrow keys to navigate</span>
+          <!--&mdash;
+          <a class="button hover-underlines">dismiss</a>-->
+        </div>
+      </div>
+    </div>
+    <div id="loading" class="hidden">
+      <span>Loading</span>
+    </div>
+    <script>document.querySelector('#app').classList.remove('nojs');</script>
+    <script src="/static/scripts/app.js"></script>
+  </body>
+</html>

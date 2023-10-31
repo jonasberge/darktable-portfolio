@@ -1,0 +1,28 @@
+<nav id="navigation">
+  <div class="logo">
+    <a href="/">
+    {% if url_for(request.endpoint) == '/about' %}
+      <img id="logo" src="/images/me.webp">
+    {% else %}
+      <img id="logo" src="/images/logo.webp">
+    {% endif %}
+    </a>
+  </div>
+  <div class="navigation-content">
+    <p class="title">
+      <a href="/">Jonas Berge</a>
+    </p>
+    <ul class="menu">
+      <li><a href="/landscape">Landscape</a></li>
+      <li><a href="/closeup">Closeup</a></li>
+      <li><a href="/film">Film</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+    <!--<div class="footer">
+      <ul class="links">
+        <li>Impressum</li>
+        <li>Datenschutz</li>
+      </ul>
+    </div>-->
+  </div>
+</nav>
