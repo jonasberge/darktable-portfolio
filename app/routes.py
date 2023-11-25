@@ -211,7 +211,7 @@ def get_darktable_library() -> darktable.DarktableLibrary:
 
 
 class MediaUrl:
-    format = '/media/{media_size}/{id}/{file_basename}.{file_extension}'
+    format = '/media/{media_size}/{id}.{file_extension}'
 
     @classmethod
     def render(cls, **kwargs):
@@ -228,7 +228,6 @@ class PhotoAsset:
         return MediaUrl.render(
             media_size=media_size.lower(),
             id=str(self.photo.id),
-            file_basename=path.splitext(path.basename(self.photo.filepath))[0],
             file_extension=config['EXPORT_EXT']
         ).removeprefix('/')
 
@@ -309,10 +308,9 @@ def get_gallery_photos(gallery_tag: str) -> list[darktable.Photo]:
 @app.route(MediaUrl.render(
     media_size='<string:media_size>',
     id='<int:id>',
-    file_basename='<string:file_basename>',
     file_extension='<string:file_extension>'
 ))
-def media(media_size: str, id: int, file_basename: str, file_extension: str):
+def media(media_size: str, id: int, file_extension: str):
     """ Request a photo export from the database by id and the file's basename
         (without raw file extension) as an export with the specified extension.
         the extension must be the same as the one configured in config.env.
@@ -329,7 +327,7 @@ def media(media_size: str, id: int, file_basename: str, file_extension: str):
     with get_darktable_library() as lib:
         # only include portfolio photos, not others
         portfolio_tag = lib.get_tag(config['PORTFOLIO_ROOT_TAG'])
-        photo = lib.get_photo_by_id_basename_tag(id=id, file_basename=file_basename, tag=portfolio_tag)
+        photo = lib.get_photo_by_id_and_tag(id=id, tag=portfolio_tag)
     if photo is None:
         abort(404)
     photo_export = exporter.export_cached(photo, out_dir=config['EXPORT_DIR'])
@@ -337,7 +335,7 @@ def media(media_size: str, id: int, file_basename: str, file_extension: str):
         raise RuntimeError('export is empty')
     return send_file(
         path_or_file=path.join(os.getcwd(), photo_export.filepath),
-        download_name=f'{file_basename}.{os.path.splitext(photo_export.filepath)[1]}'
+        download_name=f'{os.path.splitext(os.path.basename(photo.filepath))[0]}{os.path.splitext(photo_export.filepath)[1]}'
     )
 
 

@@ -389,10 +389,10 @@ class DarktableLibrary:
                 for row in result
             ]
 
-    def get_photo_by_id_basename_tag(self, id: int, file_basename: str, tag: Tag) -> Photo:
+    def get_photo_by_id_and_tag(self, id: int, tag: Tag) -> Photo:
         photos = self._select_photos("""--sql
-            WHERE images.id = ? AND images.filename LIKE ? || '._%' AND tagged_images.tagid=?
-        """, (id, file_basename, tag.id), limit=1)
+            WHERE images.id = ? AND tagged_images.tagid=?
+        """, (id, tag.id), limit=1)
         return photos[0] if len(photos) > 0 else None
 
     def get_tag(self, tag_name) -> Tag:
