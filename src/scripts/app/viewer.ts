@@ -3,6 +3,7 @@ import { styling } from "./app";
 import navigation from "./navigation";
 import scrolling from "./scrolling";
 import { easeOutQuart } from "./util/easings";
+import { toTitleCase } from "./util/strings";
 
 export default { init }
 
@@ -79,6 +80,9 @@ function init() {
     }
     div1.style.zIndex = zIndex.toString();
     viewerContentElement.append(div1);
+
+    updateViewerLiveTitle(fromImageContainer);
+
     return div1;
   }
 
@@ -166,7 +170,7 @@ function init() {
   function preloadViewerImageFrom(imageContainerElement: HTMLElement) {
     var img = document.createElement('img');
     img.onload = function () {
-      console.log('preloaded');
+      // console.log('preloaded');
     };
     img.src = imageContainerElement.querySelector('img').getAttribute('data-viewer-src');
   }
@@ -177,14 +181,29 @@ function init() {
     }
   }
 
+  var currentLiveText = '';
+
   function closeViewer() {
     document.getElementById('app').classList.remove('viewer');
     document.getElementById('navigation').classList.remove('is-compact');
     viewerState = initialViewerState();
     clearViewer();
+    navigation.setLiveText(currentLiveText, true);
+  }
+
+  function updateViewerLiveTitle(imageContainer: HTMLElement) {
+    var children = Array.from(document.querySelector('#gallery .gallery').children).filter(x => x.getAttribute('data-order') == imageContainer.getAttribute('data-order'))
+    navigation.setLiveText(
+      toTitleCase(imageContainer.getAttribute('data-key')) +
+      ' \u2012 ' +
+      (children.indexOf(imageContainer) + 1) +
+      ' of ' +
+      children.length, false);
   }
 
   function showViewer(imageContainer: HTMLElement) {
+    currentLiveText = navigation.getCurrentLiveText();
+
     clearViewer();
     document.getElementById('app').classList.add('viewer');
     document.getElementById('navigation').classList.add('is-compact');
@@ -197,14 +216,16 @@ function init() {
     navigation.onCenter(function () {
       closeViewer();
     });
+    navigation.onClose(function () {
+      closeViewer();
+    });
     navigation.onLeft(function () {
       showPreviousImage();
     });
     navigation.onRight(function () {
       showNextImage();
     });
-    // TODO
-    navigation.setLiveText('September \u2012 1 of 17', false);
+    updateViewerLiveTitle(imageContainer);
 
     if (hasPreviousImage()) preloadViewerImageFrom(previousImage());
     if (hasNextImage()) preloadViewerImageFrom(nextImage());

@@ -181,8 +181,8 @@ export_manager = ExportManager()
 # export_manager.register_media_size(MediaSize(MediaSize.LARGE, Dimensions(width=2560, height=1440)))
 # export_manager.register_media_size(MediaSize(MediaSize.LARGE, Dimensions(width=1920, height=1280)))
 # export_manager.register_media_size(MediaSize(MediaSize.MEDIUM, Dimensions(width=1592, height=896)))
-export_manager.register_media_size(MediaSize(MediaSize.LARGE, Dimensions(width=1080, height=1080)))
-export_manager.register_media_size(MediaSize(MediaSize.MEDIUM, Dimensions(width=512, height=512)))
+export_manager.register_media_size(MediaSize(MediaSize.LARGE, Dimensions(width=1728, height=972)))
+export_manager.register_media_size(MediaSize(MediaSize.MEDIUM, Dimensions(width=1080, height=972)))
 export_manager.register_media_size(MediaSize(MediaSize.SMALL, Dimensions(width=256, height=256)))
 
 sample_exporter = SampleExporter()
@@ -230,7 +230,7 @@ class PhotoAsset:
             id=str(self.photo.id),
             file_basename=path.splitext(path.basename(self.photo.filepath))[0],
             file_extension=config['EXPORT_EXT']
-        )
+        ).removeprefix('/')
 
     def dimensions_for_media_size(self, media_size: MediaSize):
         calculated_width = media_size.dimensions.height * self.aspect_ratio
@@ -365,7 +365,11 @@ def gallery(gallery: str):
 
 @app.route("/about")
 def contact():
-    return 'TODO: /about'
+    return render_template(
+        'about.jinja',
+        title='About'
+    )
+
 
 
 @app.before_request

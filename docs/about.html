@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      
+        About &mdash;
+      
+      Jonas Berge
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="static/styles/normalize.css">
+    <link rel="stylesheet" href="static/styles/fonts.css">
+    <link rel="stylesheet" href="static/styles/index.css">
+    <link rel="stylesheet" href="static/styles/about.css">
+  </head>
+  <body>
+    <div id="app">
+      <div class="app-content">
+        <nav id="navigation" class="is-compact2">
+          <div class="navigation-content">
+            <ul class="menu left">
+              <li class="">
+                <a href="index.html" draggable="false">Portfolio</a>
+              </li>
+              <li class="">
+                <a href="digital.html" draggable="false">Digital</a>
+              </li>
+              <li class="">
+                <a href="film.html" draggable="false">Film</a>
+              </li>
+            </ul>
+            <ul class="menu center">
+              <li>
+                <a href="about.html" class="button action-left invisible">
+                  <i class="arrow-left"></i>
+                </a>
+              </li><li id="live-title">
+                <a href="about.html" class="button action-center">
+                  <span class="live-title-content"></span>
+                </a>
+              </li><li>
+                <a href="about.html" class="button action-right invisible">
+                  <i class="arrow-right"></i>
+                </a>
+              </li>
+            </ul>
+            <ul class="menu right">
+              <li><a href="about.html" draggable="false">About</a></li>
+            </ul>
+          </div>
+        </nav>
+        <main id="main">
+          <div id="gallery">
+            <div id="about">
+              <noscript>
+<i style="color:lightcoral">Enable Javascript to properly view this website.</i>
+<br>
+</noscript>
+
+<h3>About this website</h3>
+
+<p>
+This is a preview of what my photography portfolio could look like in the future, the source code of this prototype can be found on GitHub <a href="https://github.com/jonasberge/darktable-portfolio" referrerpolicy="no-referrer" target="_blank" rel="noopener noreferrer">here</a>.
+The main aspect of this is that I wanted to generate my portfolio with one click from the photos I am managing in the open-source photo editing software <a href="https://www.darktable.org/" referrerpolicy="no-referrer" target="_blank" rel="noopener noreferrer">Darktable</a>. The code behind this website accesses my Darktable library, detects which images I tagged for use in my portfolio and generates static HTML output, which enables me to use Darktable like a Content Management System with a very capable user interface. For managing my portfolio I do not have to leave my editing software.
+</p>
+
+<p>
+All images are my own. Copying and/or redistributing is not allowed.<br>
+<span style="font-size:13pt">Copyright <span style="font-family:sans-serif">&copy;</span> Jonas van den Berg</span>
+</p>
+
+<br>
+
+<h3>Kontakt</h3>
+
+<p>
+Diese Webseite dient rein privaten Zwecken, alle Inhalte sind meine eigenen. Es wird kein geschäftlicher Zweck verfolgt. Bei Problemen, kontaktieren Sie mich bitte über untenstehende Kontaktdaten.
+</p>
+
+<p>
+Jonas van den Berg<br>
+E-Mail: <a href="about.html#" style="color:whitesmoke;" onclick="var e=atob('am9uYXMudmFuZGVuYmVyZ0BuZXRjb2xvZ25lLmRl');this.innerText=e;this.href=atob('bWFpbHRvOg==')+e;this.onclick=undefined;return false;">zum Anzeigen klicken</a>
+<noscript>
+<br>
+<i style="color:lightcoral">Zum Anzeigen der E-Mail Adresse muss Javascript aktiviert sein.</i>
+</noscript>
+</p>
+
+<h3>Externe Links</h3>
+<p>
+Diese Webseite enthält so genannte externe Links (Verlinkungen) zu anderen Webseiten, auf deren Inhalt der Betreiber dieser Seite keinen Einfluss hat. Aus diesem Grund kann der Betreiber für diese Inhalte auch keine Gewähr übernehmen. Für die Inhalte und Richtigkeit der bereitgestellten Informationen ist der/die jeweilige Anbieter/in der verlinkten Webseite verantwortlich. Zum Zeitpunkt der Verlinkung waren keine Rechtsverstöße erkennbar. Bei Bekanntwerden einer solchen Rechtsverletzung wird der Link umgehend entfernt.
+</p>
+
+<h3>Urheberrecht</h3>
+<p>
+Sämtliche Inhalte dieser Webseite sind rechtlich geschützt. Das Verwenden, Vervielfältigen sowie Verändern der Inhalte, Texte, Bilder etc. bedarf einer schriftlichen Genehmigung des Seitenbetreibers.
+</p>
+
+            </div>
+          </div>
+        </main>
+        <div id="viewer">
+          <div class="viewer-content">
+
+          </div>
+        </div>
+        <div id="viewer-hint">
+          <span class="hint-text">scroll or use the arrow keys to navigate</span>
+          <!--&mdash;
+          <a class="button hover-underlines">dismiss</a>-->
+        </div>
+      </div>
+    </div>
+    <script>document.querySelector('#app').classList.remove('nojs');</script>
+  </body>
+</html>

@@ -14,8 +14,11 @@ from os import path
 from typing import Callable
 from PIL import Image
 
+import exif
+
 from app.util import Cache, filehash, readonly_sqlite_connection, fullname
 from app.vendor.args_hash import args_hash
+from app.config import config
 
 
 MODULE_DIR = path.abspath(path.dirname(__file__))
@@ -242,6 +245,10 @@ class Exporter:
         export_filepath = match.groups()[0]
         self._sess_exported.add(export_filepath)
 
+        # save personal details in exif
+        with open(export_filepath, 'rb') as image_file:
+            original_exif_image = exif.Image(image_file)
+
         # remove exif data
         image = Image.open(export_filepath)
         data = list(image.getdata())
@@ -249,6 +256,15 @@ class Exporter:
         image_noexif.putdata(data)
         image_noexif.save(export_filepath)
         image_noexif.close()
+
+        # save personal details in exif
+        with open(export_filepath, 'rb') as image_file:
+            exif_image = exif.Image(image_file)
+        exif_image.set('artist', config['EXIF_SET_ARTIST'])
+        exif_image.set('copyright', config['EXIF_SET_COPYRIGHT'])
+        exif_image.set('datetime_original', original_exif_image.get('datetime_original'))
+        with open(export_filepath, 'wb') as image_file:
+            image_file.write(exif_image.get_file())
 
         return Export(photo, filepath=export_filepath)
 

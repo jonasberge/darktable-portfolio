@@ -2,7 +2,7 @@ import { Animator } from "../components/animation/Animator";
 import { easeInOutCirc, easeOutCirc, easeOutCubic, easeOutQuart } from "./util/easings";
 
 
-export default { init, onLeft, onCenter, onRight, showLeft, showRight, setLiveText }
+export default { init, onLeft, onCenter, onClose, onRight, showLeft, showRight, getCurrentLiveText, setLiveText }
 
 var noop = function () {};
 
@@ -10,6 +10,7 @@ var callbacks = {
   left: { cb: noop },
   center: { cb: noop },
   right: { cb: noop },
+  close: { cb: noop },
 };
 
 var config = {
@@ -91,7 +92,8 @@ export function init() {
   var buttons = [
     [navigation.querySelector('.action-left'), callbacks.left],
     [navigation.querySelector('.action-center'), callbacks.center],
-    [navigation.querySelector('.action-right'), callbacks.right]
+    [navigation.querySelector('.action-right'), callbacks.right],
+    [document.querySelector('.action-close'), callbacks.close]
   ]
   buttons.forEach((args: [HTMLElement, { cb: () => void }]) => {
     var [element, callbackObject] = args;
@@ -102,10 +104,15 @@ export function init() {
 export function onLeft(cb: () => void) { callbacks.left.cb = cb; }
 export function onCenter(cb: () => void) { callbacks.center.cb = cb; }
 export function onRight(cb: () => void) { callbacks.right.cb = cb; }
+export function onClose(cb: () => void) { callbacks.close.cb = cb; }
 
 var currentLiveText = "";
 var nextLiveArgs = null;
 var isAnimating = false;
+
+export function getCurrentLiveText() {
+  return currentLiveText;
+}
 
 export function setLiveText(
     text: string,
@@ -113,6 +120,11 @@ export function setLiveText(
     onAnimationFrame: (progress: number) => void = (() => {}),
     onAnimationDone: () => void = (() => {})
 ) {
+  if (!animateDown) {
+    (document.querySelector('.live-title-content') as HTMLElement).innerText = text;
+    currentLiveText = text;
+    return;
+  }
   if (currentLiveText === text) {
     return;
   }

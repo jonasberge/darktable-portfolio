@@ -15,3 +15,8 @@
     {% endfor %}
   </div>
 </div>
+<div id="gallery-medium-crawler-links" style="display:none">
+  {% for asset in photo_assets %}
+    <a href="{{ asset.get_url('medium') }}"></a>
+  {% endfor %}
+</div>

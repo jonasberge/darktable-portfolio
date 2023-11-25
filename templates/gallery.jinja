@@ -18,11 +18,11 @@
         <nav id="navigation" class="is-compact2">
           <div class="navigation-content">
             <ul class="menu left">
-              <li class="{{ 'selected' if menu_item == 'landscape' }}">
-                <a href="/landscape" draggable="false">Landscape</a>
+              <li class="{{ 'selected' if menu_item == 'index' }}">
+                <a href="/" draggable="false">Portfolio</a>
               </li>
-              <li class="{{ 'selected' if menu_item == 'closeup' }}">
-                <a href="/closeup" draggable="false">Closeup</a>
+              <li class="{{ 'selected' if menu_item == 'digital' }}">
+                <a href="/digital" draggable="false">Digital</a>
               </li>
               <li class="{{ 'selected' if menu_item == 'film' }}">
                 <a href="/film" draggable="false">Film</a>
@@ -51,22 +51,37 @@
         <main id="main">
           <div id="gallery">
             {% include "components/gallery2.jinja" %}
+            <div style="color:#aaa;font-size:10pt;text-align:center;padding-top:3rem;">
+              All images are my own.
+              Copyright <span style="font-family:sans-serif">&copy;</span>
+              Jonas van den Berg
+            </div>
           </div>
         </main>
+        <div id="viewer-close">
+          <a href="" class="button action-close" title="close the viewer">
+            <div class="cross-mark"></div>
+          </a>
+        </div>
         <div id="viewer">
           <div class="viewer-content">
 
           </div>
         </div>
         <div id="viewer-hint">
-          <span class="hint-text">scroll or use the arrow keys to navigate</span>
+          <span class="hint-text">scroll or use the arrow keys to navigate &mdash; escape to close</span>
+          <br>
+          <span class="hint-text">
+            <span style="color:#aaa;font-size:10pt">
+              All images are my own.
+              Copyright <span style="font-family:sans-serif">&copy;</span>
+              Jonas van den Berg
+            </span>
+          </span>
           <!--&mdash;
           <a class="button hover-underlines">dismiss</a>-->
         </div>
       </div>
-    </div>
-    <div id="loading" class="hidden">
-      <span>Loading</span>
     </div>
     <script>document.querySelector('#app').classList.remove('nojs');</script>
     <script src="/static/scripts/app.js"></script>

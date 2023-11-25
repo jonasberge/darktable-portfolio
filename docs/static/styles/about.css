@@ -1,0 +1,13 @@
+html,
+html body {
+  overflow: visible !important;
+}
+
+#gallery {
+  min-height: 1vh;
+}
+
+#about {
+  color: whitesmoke;
+  padding: 2rem 2rem;
+}

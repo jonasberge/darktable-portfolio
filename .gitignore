@@ -21,5 +21,7 @@ build
 
 # don't version
 notes.txt
+revamp-notes.txt
 darktable
 test.py
+config.env
