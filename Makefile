@@ -1,4 +1,4 @@
-.PHONY: all pip-freeze
+.PHONY: all pip-freeze run-flask-dev run-gulp-dev freeze-site prepare-github-pages publish-github-pages serve-docs
 
 VENV_DIR=venv
 VENV_ACTIVATE=$(VENV_DIR)/bin/activate
@@ -29,3 +29,11 @@ freeze-site:
 
 serve-docs:
 	python3 -m http.server -d docs 8000
+
+prepare-github-pages:
+	find docs -type f -name '*.html' -exec sed -i 's/href="index.html"/href="\/"/g' {} \;
+	find docs -type f -name '*.html' -exec sed -i -E 's/href="(.*).html"/href="\1"/g' {} \;
+
+publish-github-pages: prepare-github-pages
+	git diff --exit-code docs || \
+		git add docs && git commit -m "Publish" && git push origin master

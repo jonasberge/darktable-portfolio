@@ -77,3 +77,22 @@ Run this command to check and see if everything is fine with the static export.
 ```
 $ make serve-docs
 ```
+
+## Prepare links for GitHub pages
+
+The static export of `wget` contains `*.html` URLs in the `href` attributes of links.
+GitHub Pages supports the omission of the file extension,
+run this command to remove them from all links.
+
+```
+$ make prepare-github-pages
+```
+
+*This command is automatically executed before publishing,
+so it does not have to be executed manually.*
+
+## Publish to GitHub Pages
+
+```
+$ make publish-github-pages
+```
