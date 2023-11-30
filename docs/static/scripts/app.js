@@ -389,9 +389,9 @@ var RowRenderStrategy = /** @class */function () {
     if (ctx.columns > 1 && column == ctx.columns - 1) {
       // always pick the next portrait in the last column
       // since we always want landscape photos to be wide.
-      if (ctx.iterator.peekPortrait() === null) {
-        console.log('x', ctx.iterator.peek());
-      }
+      // if (ctx.iterator.peekPortrait() === null) {
+      //   console.log('x', ctx.iterator.peek());
+      // }
       var portraitPeek = ctx.iterator.peekPortrait();
       if (!portraitPeek || portraitPeek.getOrder() > ctx.iterator.peek().getOrder()) {
         galleryImage = ctx.iterator.next();
@@ -1220,11 +1220,6 @@ function init$1() {
   if (startPos != scrollEndValue) window.requestAnimationFrame(scroll);
 }*/
 
-function toTitleCase(str) {
-  return str.replace(/\w\S*/g, function (txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
-}
 var gallery = {
   init: init$2
 };
@@ -1272,7 +1267,7 @@ function determineCurrentKey(minIndex) {
     }
     targetElement = elements[elements.length - 1];
   }
-  return [targetElement, targetElement.getAttribute('data-key')];
+  return [targetElement, targetElement.getAttribute('data-key'), targetElement.getAttribute('data-key-display')];
 }
 function selectorForKey(key, additionalSelector) {
   if (additionalSelector === void 0) {
@@ -1280,11 +1275,10 @@ function selectorForKey(key, additionalSelector) {
   }
   return ".image-container".concat(additionalSelector, "[data-key=\"").concat(key, "\"]");
 }
-function getTextForKey(key) {
-  var month = toTitleCase(key);
+function getTextForKeyDisplay(key, keyDisplay) {
   var keyImages = document.querySelectorAll(selectorForKey(key, ':not(.month-card)'));
   var numberOfPhotos = keyImages.length;
-  return "".concat(month, " \u2013 ").concat(numberOfPhotos, " photo").concat(numberOfPhotos === 1 ? '' : 's');
+  return "".concat(keyDisplay, " \u2013 ").concat(numberOfPhotos, " photo").concat(numberOfPhotos === 1 ? '' : 's');
 }
 // find's the first element that has the same key, a previous key or the next key.
 // if direction == 0: find's the first sibling element with the same key.
@@ -1340,7 +1334,8 @@ function updateNavigation(preventArrowsVisible) {
   }
   var _a = determineCurrentKey(minIndex),
     element = _a[0],
-    key = _a[1];
+    key = _a[1],
+    keyDisplay = _a[2];
   if (typeof key !== 'string') {
     return;
   }
@@ -1352,7 +1347,7 @@ function updateNavigation(preventArrowsVisible) {
   }
   lastNavigationElement = element;
   if (preventArrowsVisible) {
-    navigation.setLiveText(getTextForKey(key), animateDown, function () {
+    navigation.setLiveText(getTextForKeyDisplay(key, keyDisplay), animateDown, function () {
       if (isGalleryVisible()) {
         navigation.showLeft(false);
         navigation.showRight(false);
@@ -1366,7 +1361,7 @@ function updateNavigation(preventArrowsVisible) {
       }
     });
   } else {
-    navigation.setLiveText(getTextForKey(key), animateDown);
+    navigation.setLiveText(getTextForKeyDisplay(key, keyDisplay), animateDown);
   }
   var previous = firstKeyElement(element, -1);
   var current = firstKeyElement(element, 0);
@@ -1718,7 +1713,7 @@ function init$3() {
     var children = Array.from(document.querySelector('#gallery .gallery').children).filter(function (x) {
       return x.getAttribute('data-order') == imageContainer.getAttribute('data-order');
     });
-    navigation.setLiveText(toTitleCase(imageContainer.getAttribute('data-key')) + " \u2012 " + (children.indexOf(imageContainer) + 1) + ' of ' + children.length, false);
+    navigation.setLiveText(imageContainer.getAttribute('data-key-display') + " \u2012 " + (children.indexOf(imageContainer) + 1) + ' of ' + children.length, false);
   }
   function showViewer(imageContainer) {
     currentLiveText = navigation.getCurrentLiveText();
