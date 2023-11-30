@@ -27,7 +27,7 @@ export function isGalleryVisible() {
   return !document.querySelector('#app').classList.contains('viewer');
 }
 
-function determineCurrentKey(minIndex: number): [HTMLElement, string] {
+function determineCurrentKey(minIndex: number): [HTMLElement, string, string] {
   var galleryElement: HTMLElement = document.querySelector('.gallery');
   var images: NodeListOf<HTMLElement> = galleryElement.querySelectorAll('.image-container');
   var targetY = null;
@@ -57,18 +57,17 @@ function determineCurrentKey(minIndex: number): [HTMLElement, string] {
     }
     targetElement = elements[elements.length - 1];
   }
-  return [targetElement, targetElement.getAttribute('data-key')];
+  return [targetElement, targetElement.getAttribute('data-key'), targetElement.getAttribute('data-key-display')];
 }
 
 function selectorForKey(key: string, additionalSelector: string = ''): string {
   return `.image-container${additionalSelector}[data-key="${key}"]`
 }
 
-function getTextForKey(key: string): string {
-  var month = toTitleCase(key);
+function getTextForKeyDisplay(key: string, keyDisplay: string): string {
   var keyImages = document.querySelectorAll(selectorForKey(key, ':not(.month-card)'))
   var numberOfPhotos = keyImages.length;
-  return `${month} \u2013 ${numberOfPhotos} photo${numberOfPhotos === 1 ? '' : 's'}`
+  return `${keyDisplay} \u2013 ${numberOfPhotos} photo${numberOfPhotos === 1 ? '' : 's'}`
 }
 
 // find's the first element that has the same key, a previous key or the next key.
@@ -122,7 +121,7 @@ function updateNavigation(preventArrowsVisible: boolean = false) {
   if (lastScrolledElement !== null) {
     minIndex = indexOfElementInParent(lastScrolledElement);
   }
-  var [element, key] = determineCurrentKey(minIndex);
+  var [element, key, keyDisplay] = determineCurrentKey(minIndex);
   if (typeof key !== 'string') {
     return;
   }
@@ -134,7 +133,7 @@ function updateNavigation(preventArrowsVisible: boolean = false) {
   }
   lastNavigationElement = element;
   if (preventArrowsVisible) {
-    navigation.setLiveText(getTextForKey(key), animateDown,
+    navigation.setLiveText(getTextForKeyDisplay(key, keyDisplay), animateDown,
       function () {
         if (isGalleryVisible()) {
           navigation.showLeft(false);
@@ -151,7 +150,7 @@ function updateNavigation(preventArrowsVisible: boolean = false) {
     );
   }
   else {
-    navigation.setLiveText(getTextForKey(key), animateDown);
+    navigation.setLiveText(getTextForKeyDisplay(key, keyDisplay), animateDown);
   }
   currentNavigationElement = element;
   var previous = firstKeyElement(element, -1);

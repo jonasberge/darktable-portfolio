@@ -5,7 +5,14 @@
         data-aspect-ratio="{{ asset.aspect_ratio | round(6) }}"
         data-orientation="{{ 'landscape' if asset.aspect_ratio >= 1.0 else 'portrait' }}"
         data-date="{{ asset.date_key.strftime('%Y-%m-%d') }}"
-        data-key="{{ asset.date_key.strftime('%B') | lower }}">
+        {% if gallery_name == 'virtual' %}
+          data-key="{{ asset.date_key.strftime('%Y-%m-%d') }}"
+          data-key-display="{{ asset.date_key.strftime('%B %-d') }}"
+        {% else %}
+          data-key="{{ asset.date_key.strftime('%B') | lower }}"
+          data-key-display="{{ asset.date_key.strftime('%B') }}"
+        {% endif %}
+        >
         <img src=""
           data-src="{{ asset.get_url('medium') }}"
           data-viewer-src="{{ asset.get_url('large') }}"

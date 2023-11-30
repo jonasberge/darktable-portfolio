@@ -169,7 +169,7 @@ html:not(.is-mobile) #app .app-content {
 /* NAVIGATION */
 
 :root {
-  --live-title-width: 11em;
+  --live-title-width: 13em;
 }
 
 #live-title {
@@ -397,6 +397,9 @@ ul.menu li a {
   #navigation .navigation-content {
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+  #app:not(.viewer) #navigation .navigation-content .menu.left {
+    flex: 1.5;
   }
   .image-container:hover img {
     opacity: 1; /**/

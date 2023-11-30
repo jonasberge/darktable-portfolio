@@ -22,9 +22,9 @@ export class RowRenderStrategy implements RenderStrategy {
     if (ctx.columns > 1 && column == ctx.columns - 1) {
       // always pick the next portrait in the last column
       // since we always want landscape photos to be wide.
-      if (ctx.iterator.peekPortrait() === null) {
-        console.log('x', ctx.iterator.peek());
-      }
+      // if (ctx.iterator.peekPortrait() === null) {
+      //   console.log('x', ctx.iterator.peek());
+      // }
       var portraitPeek: GalleryImage = ctx.iterator.peekPortrait();
       if (!portraitPeek || portraitPeek.getOrder() > ctx.iterator.peek().getOrder()) {
         galleryImage = ctx.iterator.next();

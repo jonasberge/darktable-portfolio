@@ -276,7 +276,7 @@ def filmroll_average_dates(photos: list[darktable.Photo]) -> dict[int, datetime.
     return filmroll_keys
 
 
-def create_photo_assets(photos: list[darktable.Photo]) -> list[darktable.Photo]:
+def create_photo_assets(photos: list[darktable.Photo]) -> list[PhotoAsset]:
     filmroll_dates = filmroll_average_dates(photos)
     media_assets: list[PhotoAsset] = []
 
@@ -298,9 +298,25 @@ def sorted_photo_assets(photo_assets: list[PhotoAsset]) -> list[PhotoAsset]:
     return sorted_assets
 
 
+# 2023-07-01_13.09.19_highres.png
+def fix_photo_datetime_taken(photos: list[darktable.Photo]) -> list[darktable.Photo]:
+    result = []
+    for photo in photos:
+        filename = os.path.basename(photo.filepath)
+        timestamp = datetime.datetime.strptime(filename[:19], '%Y-%m-%d_%H.%M.%S')
+        photo.datetime_taken = timestamp
+        result.append(photo)
+        print(timestamp)
+    return result
+
+
 def get_gallery_photos(gallery_tag: str) -> list[darktable.Photo]:
     photos = get_portfolio_photos(gallery_tag)
+    # photos = fix_photo_datetime_taken(photos)
     photo_assets = create_photo_assets(photos)
+    if gallery_tag == 'virtual':
+        for asset in photo_assets:
+            asset.date_key = asset.photo.datetime_taken
     photo_assets = sorted_photo_assets(photo_assets)
     return photo_assets
 
@@ -357,7 +373,8 @@ def gallery(gallery: str):
         title=display_name,
         menu_item=gallery,
         photo_assets=get_gallery_photos(gallery),
-        export_manager=export_manager
+        export_manager=export_manager,
+        gallery_name=gallery
     )
 
 

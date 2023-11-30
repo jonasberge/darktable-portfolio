@@ -194,7 +194,7 @@ function init() {
   function updateViewerLiveTitle(imageContainer: HTMLElement) {
     var children = Array.from(document.querySelector('#gallery .gallery').children).filter(x => x.getAttribute('data-order') == imageContainer.getAttribute('data-order'))
     navigation.setLiveText(
-      toTitleCase(imageContainer.getAttribute('data-key')) +
+      imageContainer.getAttribute('data-key-display') +
       ' \u2012 ' +
       (children.indexOf(imageContainer) + 1) +
       ' of ' +
