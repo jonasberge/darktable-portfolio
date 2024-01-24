@@ -1276,6 +1276,7 @@ function selectorForKey(key, additionalSelector) {
   return ".image-container".concat(additionalSelector, "[data-key=\"").concat(key, "\"]");
 }
 function getTextForKeyDisplay(key, keyDisplay) {
+  console.log(selectorForKey(key, ':not(.month-card)'));
   var keyImages = document.querySelectorAll(selectorForKey(key, ':not(.month-card)'));
   var numberOfPhotos = keyImages.length;
   return "".concat(keyDisplay, " \u2013 ").concat(numberOfPhotos, " photo").concat(numberOfPhotos === 1 ? '' : 's');
